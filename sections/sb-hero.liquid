@@ -1,0 +1,322 @@
+{% comment %}
+  Spellbinder — Hero Section
+  sections/sb-hero.liquid
+
+  Full-bleed photo hero with gradient overlay, headline, subheadline, and CTA.
+  Matches the three Website variants in Figma (Hiker / Coffee / Golden Latte).
+
+  Usage: Add to a page template via the Shopify theme editor or JSON template.
+{% endcomment %}
+
+{{ 'spellbinder.css' | asset_url | stylesheet_tag }}
+
+<section
+  class="sb-hero"
+  id="sb-hero-{{ section.id }}"
+  style="--hero-height: {{ section.settings.hero_height }}px;"
+>
+
+  {%- if section.settings.image != blank -%}
+    <div class="sb-hero__image">
+      {{
+        section.settings.image
+        | image_url: width: 2400
+        | image_tag:
+          loading: 'eager',
+          fetchpriority: 'high',
+          widths: '750, 1100, 1500, 1780, 2000, 2400',
+          sizes: '100vw',
+          class: 'sb-hero__img',
+          alt: section.settings.image.alt | escape
+      }}
+    </div>
+  {%- else -%}
+    <div class="sb-hero__image sb-hero__image--placeholder">
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'sb-hero__img sb-hero__img--placeholder' }}
+    </div>
+  {%- endif -%}
+
+  <div class="sb-hero__overlay"></div>
+
+  <div class="sb-hero__content">
+    {%- unless section.settings.eyebrow == blank -%}
+      <p class="sb-hero__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endunless -%}
+
+    {%- unless section.settings.heading == blank -%}
+      <{{ section.settings.heading_tag }} class="sb-hero__heading sb-headline-xl">
+        {{ section.settings.heading }}
+      </{{ section.settings.heading_tag }}>
+    {%- endunless -%}
+
+    {%- unless section.settings.subheading == blank -%}
+      <p class="sb-hero__subheading sb-body-lede">
+        {{ section.settings.subheading }}
+      </p>
+    {%- endunless -%}
+
+    {%- if section.settings.cta_label != blank and section.settings.cta_url != blank -%}
+      <a
+        href="{{ section.settings.cta_url }}"
+        class="sb-btn sb-hero__cta"
+        {% if section.settings.cta_new_tab %}target="_blank" rel="noopener"{% endif %}
+      >
+        {{ section.settings.cta_label }}
+      </a>
+    {%- endif -%}
+  </div>
+
+</section>
+
+<style>
+  #sb-hero-{{ section.id }} {
+    position: relative;
+    width: 100%;
+    height: var(--hero-height, 600px);
+    overflow: hidden;
+    background: #000;
+    display: flex;
+    align-items: center;
+  }
+
+  #sb-hero-{{ section.id }} .sb-hero__image {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  #sb-hero-{{ section.id }} .sb-hero__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: {{ section.settings.image_position }};
+    display: block;
+  }
+
+  #sb-hero-{{ section.id }} .sb-hero__img--placeholder {
+    opacity: 0.4;
+  }
+
+  #sb-hero-{{ section.id }} .sb-hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      #000000 {{ section.settings.overlay_solid_stop }}%,
+      rgba(0,0,0,{{ section.settings.overlay_mid_opacity | divided_by: 100.0 }}) {{ section.settings.overlay_mid_stop }}%,
+      rgba(0,0,0,0) 100%
+    );
+  }
+
+  #sb-hero-{{ section.id }} .sb-hero__content {
+    position: relative;
+    z-index: 2;
+    padding: 0 {{ section.settings.content_padding_x }}px;
+    max-width: {{ section.settings.content_max_width }}px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-self: center;
+  }
+
+  #sb-hero-{{ section.id }} .sb-hero__eyebrow {
+    font-family: "Plus Jakarta Sans", "Gilroy", system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #BA9971;
+  }
+
+  #sb-hero-{{ section.id }} .sb-hero__heading {
+    margin: 0;
+  }
+
+  #sb-hero-{{ section.id }} .sb-hero__subheading {
+    margin: 0;
+    max-width: 560px;
+  }
+
+  /* Mobile */
+  @media screen and (max-width: 749px) {
+    #sb-hero-{{ section.id }} {
+      height: {{ section.settings.hero_height_mobile }}px;
+      align-items: flex-end;
+    }
+
+    #sb-hero-{{ section.id }} .sb-hero__content {
+      padding: 0 24px 48px;
+      gap: 16px;
+    }
+
+    #sb-hero-{{ section.id }} .sb-hero__overlay {
+      background: linear-gradient(
+        rgba(0,0,0,0) 0%,
+        rgba(0,0,0,0.7) 40%,
+        #000 100%
+      );
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "SB Hero",
+  "tag": "section",
+  "class": "spellbinder-hero",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero image"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image focal point",
+      "options": [
+        { "value": "center top",    "label": "Top" },
+        { "value": "center center", "label": "Center" },
+        { "value": "center bottom", "label": "Bottom" },
+        { "value": "left center",   "label": "Left" },
+        { "value": "right center",  "label": "Right" }
+      ],
+      "default": "center center"
+    },
+    {
+      "type": "range",
+      "id": "hero_height",
+      "label": "Height (desktop)",
+      "min": 300,
+      "max": 1000,
+      "step": 20,
+      "default": 600,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "hero_height_mobile",
+      "label": "Height (mobile)",
+      "min": 300,
+      "max": 800,
+      "step": 20,
+      "default": 500,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Overlay"
+    },
+    {
+      "type": "range",
+      "id": "overlay_solid_stop",
+      "label": "Black solid until (%)",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "overlay_mid_stop",
+      "label": "Fade out by (%)",
+      "min": 30,
+      "max": 80,
+      "step": 5,
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "overlay_mid_opacity",
+      "label": "Mid-point opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 55
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow label",
+      "placeholder": "e.g. All-n-One Daily Ritual"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Headline",
+      "default": "Your Best Days Start Here"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Headline tag",
+      "options": [
+        { "value": "h1", "label": "H1 (use once per page)" },
+        { "value": "h2", "label": "H2" }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Real energy. Real ingredients. Real results. No stimulants borrowed from tomorrow."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Try Now"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "cta_new_tab",
+      "label": "Open in new tab",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "content_padding_x",
+      "label": "Content side padding",
+      "min": 20,
+      "max": 200,
+      "step": 10,
+      "default": 80,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "label": "Content max width",
+      "min": 400,
+      "max": 900,
+      "step": 20,
+      "default": 680,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "SB Hero"
+    }
+  ]
+}
+{% endschema %}

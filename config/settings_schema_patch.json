@@ -1,0 +1,157 @@
+// =============================================================================
+// Spellbinder — settings_schema.json PATCH
+// config/settings_schema.json (partial — insert only)
+// =============================================================================
+//
+// HOW TO USE:
+// 1. Open your Dawn theme's config/settings_schema.json
+// 2. Find the closing ] of the top-level array
+// 3. Add a comma after the last existing block, then paste the object below
+//
+// DO NOT replace the entire file — Dawn has many existing blocks.
+// This adds a single "Spellbinder" group to Theme Settings in the editor.
+//
+// =============================================================================
+
+{
+  "name": "Spellbinder",
+  "settings": [
+
+    {
+      "type": "header",
+      "content": "Brand Colors"
+    },
+    {
+      "type": "color",
+      "id": "sb_color_gold",
+      "label": "Gold (primary CTA)",
+      "default": "#BA9971",
+      "info": "Used for buttons, active nav links, and accent borders."
+    },
+    {
+      "type": "color",
+      "id": "sb_color_fire",
+      "label": "Fire (banner start)",
+      "default": "#FE8E02"
+    },
+    {
+      "type": "color",
+      "id": "sb_color_lava",
+      "label": "Lava (banner end / logo bolt)",
+      "default": "#FE01CD"
+    },
+    {
+      "type": "color",
+      "id": "sb_color_smoke",
+      "label": "Smoke (card / nav background)",
+      "default": "#1F1F1F"
+    },
+    {
+      "type": "color",
+      "id": "sb_color_ivory",
+      "label": "Ivory (primary headline text)",
+      "default": "#F6F5E8"
+    },
+    {
+      "type": "color",
+      "id": "sb_color_muted",
+      "label": "Muted text (card body copy)",
+      "default": "#ABABAB"
+    },
+
+    {
+      "type": "header",
+      "content": "Accent Palette"
+    },
+    {
+      "type": "color",
+      "id": "sb_color_plum",
+      "label": "Plum",
+      "default": "#63149A"
+    },
+    {
+      "type": "color",
+      "id": "sb_color_ocean",
+      "label": "Ocean",
+      "default": "#03939C"
+    },
+    {
+      "type": "color",
+      "id": "sb_color_neon",
+      "label": "Neon",
+      "default": "#CAF017"
+    },
+    {
+      "type": "color",
+      "id": "sb_color_electric_green",
+      "label": "Electric Green",
+      "default": "#6EE21E"
+    },
+
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "sb_font_display",
+      "label": "Display / Headline font",
+      "default": "times_new_roman_n4",
+      "info": "Used for H1/H2 hero headlines. Times New Roman by default."
+    },
+    {
+      "type": "font_picker",
+      "id": "sb_font_ui",
+      "label": "UI / Body font (Gilroy substitute)",
+      "default": "helvetica_neue_n4",
+      "info": "Used for nav, buttons, body copy. Replace with Gilroy when licensed."
+    },
+
+    {
+      "type": "header",
+      "content": "Global Layout"
+    },
+    {
+      "type": "range",
+      "id": "sb_layout_max_width",
+      "label": "Max content width",
+      "min": 1000,
+      "max": 1800,
+      "step": 40,
+      "default": 1728,
+      "unit": "px",
+      "info": "Matches the 1728px Figma design width."
+    },
+    {
+      "type": "range",
+      "id": "sb_layout_side_padding",
+      "label": "Default side padding",
+      "min": 16,
+      "max": 160,
+      "step": 8,
+      "default": 80,
+      "unit": "px"
+    },
+
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "sb_logo",
+      "label": "Logo image",
+      "info": "Upload a transparent PNG or SVG. Recommended height: 72px @ 2x = 144px tall source file."
+    },
+    {
+      "type": "range",
+      "id": "sb_logo_height",
+      "label": "Logo display height",
+      "min": 32,
+      "max": 120,
+      "step": 4,
+      "default": 72,
+      "unit": "px"
+    }
+  ]
+}

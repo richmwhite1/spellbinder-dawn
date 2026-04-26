@@ -1,0 +1,277 @@
+{% comment %}
+  Spellbinder — Marquee Banner Section
+  sections/sb-banner.liquid
+
+  Animated scrolling announcement banner with gradient background.
+  Repeats a list of text items continuously. Matches the Fire→Lava
+  banner seen across all three Website variants in Figma.
+
+  Usage: Add above or below the hero section in a JSON template.
+{% endcomment %}
+
+{{ 'spellbinder.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign gradient = section.settings.gradient_preset
+  case gradient
+    when 'fire_lava'
+      assign bg = 'linear-gradient(to right, #FE8E02, #FE01CD)'
+      assign text_color = '#FFFFFF'
+    when 'ocean_plum'
+      assign bg = 'linear-gradient(to right, #03939C, #63149A)'
+      assign text_color = '#FFFFFF'
+    when 'neon_green'
+      assign bg = 'linear-gradient(to right, #CAF017, #6EE21E)'
+      assign text_color = '#000000'
+    when 'custom'
+      assign bg = 'linear-gradient(to right, ' | append: section.settings.gradient_from | append: ', ' | append: section.settings.gradient_to | append: ')'
+      assign text_color = section.settings.custom_text_color
+    else
+      assign bg = 'linear-gradient(to right, #FE8E02, #FE01CD)'
+      assign text_color = '#FFFFFF'
+  endcase
+
+  assign speed = section.settings.scroll_speed
+  assign item_gap = section.settings.item_gap
+-%}
+
+<div
+  class="sb-banner"
+  id="sb-banner-{{ section.id }}"
+  style="
+    background: {{ bg }};
+    height: {{ section.settings.banner_height }}px;
+    --sb-banner-text-color: {{ text_color }};
+    --sb-banner-font-size: {{ section.settings.font_size }}px;
+    --sb-banner-gap: {{ item_gap }}px;
+    --sb-banner-duration: {{ speed }}s;
+  "
+  role="marquee"
+  aria-label="Announcement banner"
+>
+  <div class="sb-banner__track" aria-hidden="true">
+    {%- comment %} Render items twice for seamless loop {% endcomment %}
+    {%- for i in (1..2) -%}
+      <div class="sb-banner__run">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'item' -%}
+            <span class="sb-banner__item" {{ block.shopify_attributes }}>
+              {{- block.settings.text -}}
+            </span>
+            {%- if section.settings.show_separator -%}
+              <span class="sb-banner__sep" aria-hidden="true">{{ section.settings.separator_char }}</span>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+<style>
+  #sb-banner-{{ section.id }} {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  #sb-banner-{{ section.id }} .sb-banner__track {
+    display: flex;
+    align-items: center;
+    animation: sb-marquee-{{ section.id }} var(--sb-banner-duration) linear infinite;
+    white-space: nowrap;
+    will-change: transform;
+  }
+
+  #sb-banner-{{ section.id }} .sb-banner__run {
+    display: flex;
+    align-items: center;
+    gap: var(--sb-banner-gap);
+    padding-right: var(--sb-banner-gap);
+    flex-shrink: 0;
+  }
+
+  #sb-banner-{{ section.id }} .sb-banner__item {
+    font-family: "Plus Jakarta Sans", "Gilroy", system-ui, sans-serif;
+    font-size: var(--sb-banner-font-size);
+    font-weight: 700;
+    color: var(--sb-banner-text-color);
+    flex-shrink: 0;
+  }
+
+  #sb-banner-{{ section.id }} .sb-banner__sep {
+    font-family: "Plus Jakarta Sans", "Gilroy", system-ui, sans-serif;
+    font-size: var(--sb-banner-font-size);
+    font-weight: 700;
+    color: var(--sb-banner-text-color);
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+
+  @keyframes sb-marquee-{{ section.id }} {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* Pause on hover if enabled */
+  {%- if section.settings.pause_on_hover -%}
+  #sb-banner-{{ section.id }}:hover .sb-banner__track {
+    animation-play-state: paused;
+  }
+  {%- endif -%}
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    #sb-banner-{{ section.id }} .sb-banner__track {
+      animation: none;
+    }
+    #sb-banner-{{ section.id }} .sb-banner__run + .sb-banner__run {
+      display: none;
+    }
+    #sb-banner-{{ section.id }} .sb-banner__run {
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 4px var(--sb-banner-gap);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "SB Banner",
+  "tag": "div",
+  "class": "spellbinder-banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "select",
+      "id": "gradient_preset",
+      "label": "Gradient",
+      "options": [
+        { "value": "fire_lava",   "label": "Fire → Lava (orange to pink)" },
+        { "value": "ocean_plum",  "label": "Ocean → Plum (teal to purple)" },
+        { "value": "neon_green",  "label": "Neon → Electric Green" },
+        { "value": "custom",      "label": "Custom" }
+      ],
+      "default": "fire_lava"
+    },
+    {
+      "type": "color",
+      "id": "gradient_from",
+      "label": "Custom gradient: start color",
+      "default": "#FE8E02"
+    },
+    {
+      "type": "color",
+      "id": "gradient_to",
+      "label": "Custom gradient: end color",
+      "default": "#FE01CD"
+    },
+    {
+      "type": "color",
+      "id": "custom_text_color",
+      "label": "Custom text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "banner_height",
+      "label": "Banner height",
+      "min": 36,
+      "max": 80,
+      "step": 2,
+      "default": 52,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Scroll"
+    },
+    {
+      "type": "range",
+      "id": "scroll_speed",
+      "label": "Scroll speed (lower = faster)",
+      "min": 8,
+      "max": 60,
+      "step": 2,
+      "default": 20,
+      "unit": "s"
+    },
+    {
+      "type": "range",
+      "id": "item_gap",
+      "label": "Gap between items",
+      "min": 20,
+      "max": 160,
+      "step": 10,
+      "default": 80,
+      "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause on hover",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Separator"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_separator",
+      "label": "Show separator between items",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "separator_char",
+      "label": "Separator character",
+      "default": "·"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Banner item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Cognative Clarity"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SB Banner",
+      "blocks": [
+        { "type": "item", "settings": { "text": "Cognative Clarity" } },
+        { "type": "item", "settings": { "text": "Gut Health" } },
+        { "type": "item", "settings": { "text": "Deep Recovery" } },
+        { "type": "item", "settings": { "text": "Daily Ritual" } },
+        { "type": "item", "settings": { "text": "Spagyric Botanicals" } },
+        { "type": "item", "settings": { "text": "40+ Botanicals" } },
+        { "type": "item", "settings": { "text": "No Stimulants" } },
+        { "type": "item", "settings": { "text": "Caffeine Free" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

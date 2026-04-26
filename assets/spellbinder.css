@@ -1,0 +1,291 @@
+/* ==========================================================================
+   Spellbinder Design System — Dawn Theme Integration
+   assets/spellbinder.css
+   ==========================================================================
+   HOW TO USE:
+   1. Add {{ 'spellbinder.css' | asset_url | stylesheet_tag }} to
+      layout/theme.liquid, just before </head>
+   2. This file overrides Dawn's CSS custom properties and adds
+      Spellbinder-specific tokens and utility classes.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap');
+
+/* NOTE: "Plus Jakarta Sans" is used as a substitute for Gilroy (commercial).
+   When Gilroy is licensed, replace the @import above with your @font-face
+   declarations and update --font-ui below. */
+
+/* --------------------------------------------------------------------------
+   1. SPELLBINDER COLOR TOKENS
+   -------------------------------------------------------------------------- */
+
+:root {
+
+  /* Neutrals */
+  --sb-black:           #000000;
+  --sb-smoke:           #1F1F1F;
+  --sb-smoke-light:     #434343;
+  --sb-smoke-lightest:  #676767;
+  --sb-grey-light:      #ABABAB;
+  --sb-grey-lighter:    #CBCBCB;
+  --sb-ivory:           #F6F5E8;
+  --sb-ivory-dim:       #EEEEE7;
+  --sb-white:           #FFFFFF;
+
+  /* Brand / Primary */
+  --sb-gold:            #BA9971;
+  --sb-gold-light:      #E9D3B7;
+
+  /* Accent / Product palette */
+  --sb-fire:            #FE8E02;
+  --sb-lava:            #FE01CD;
+  --sb-plum:            #63149A;
+  --sb-ocean:           #03939C;
+  --sb-neon:            #CAF017;
+  --sb-electric-green:  #6EE21E;
+
+  /* Gradients */
+  --sb-gradient-banner: linear-gradient(to right, var(--sb-fire), var(--sb-lava));
+  --sb-gradient-hero:   linear-gradient(#000000 10%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0) 100%);
+
+  /* Semantic roles */
+  --sb-bg-page:         var(--sb-black);
+  --sb-bg-surface:      var(--sb-smoke);
+  --sb-bg-raised:       var(--sb-smoke-light);
+  --sb-border:          var(--sb-smoke-lightest);
+  --sb-border-accent:   var(--sb-gold-light);
+
+  --sb-text-primary:    var(--sb-ivory);
+  --sb-text-secondary:  var(--sb-ivory-dim);
+  --sb-text-muted:      var(--sb-grey-light);
+  --sb-text-nav:        #F9F9F9;
+
+  /* --------------------------------------------------------------------------
+     2. TYPOGRAPHY TOKENS
+     -------------------------------------------------------------------------- */
+
+  --sb-font-display: "Times New Roman", "Times", Georgia, serif;
+  --sb-font-ui:      "Plus Jakarta Sans", "Gilroy", system-ui, sans-serif;
+  --sb-font-system:  "SF Compact Display", "SF Pro", system-ui, sans-serif;
+
+  /* Display scale */
+  --sb-text-display-xl:  72px;
+  --sb-text-display-lg:  36px;
+
+  /* UI scale */
+  --sb-text-ui-xl:  24px;
+  --sb-text-ui-lg:  20px;
+  --sb-text-ui-md:  18px;
+  --sb-text-ui-sm:  16px;
+
+  /* Weights */
+  --sb-weight-regular: 400;
+  --sb-weight-medium:  500;
+  --sb-weight-bold:    700;
+
+  /* Leading */
+  --sb-leading-tight:  1;
+  --sb-leading-body:   1.5;
+  --sb-leading-ui:     24px;
+
+  /* --------------------------------------------------------------------------
+     3. SPACING SCALE
+     -------------------------------------------------------------------------- */
+
+  --sb-space-1:   4px;
+  --sb-space-2:   8px;
+  --sb-space-3:  10px;
+  --sb-space-4:  16px;
+  --sb-space-5:  24px;
+  --sb-space-6:  32px;
+  --sb-space-7:  40px;
+  --sb-space-8:  60px;
+  --sb-space-9: 100px;
+
+  /* --------------------------------------------------------------------------
+     4. BORDER RADIUS
+     -------------------------------------------------------------------------- */
+
+  --sb-radius-sm:    6px;
+  --sb-radius-md:   12px;
+  --sb-radius-pill: 300px;
+
+  /* --------------------------------------------------------------------------
+     5. TRANSITIONS
+     -------------------------------------------------------------------------- */
+
+  --sb-transition: 150ms ease;
+}
+
+/* --------------------------------------------------------------------------
+   6. DAWN CSS VARIABLE OVERRIDES
+   These map Spellbinder tokens onto Dawn's built-in custom properties so
+   existing Dawn components (header, footer, cart, etc.) inherit the brand.
+   -------------------------------------------------------------------------- */
+
+:root {
+  /* Colors */
+  --color-base-background-1:     0, 0, 0;        /* #000 — page bg */
+  --color-base-background-2:     31, 31, 31;      /* #1F1F1F — alt surface */
+  --color-base-text:             246, 245, 232;   /* #F6F5E8 ivory */
+  --color-base-accent-1:         186, 153, 113;   /* #BA9971 gold */
+  --color-base-accent-2:         254, 1, 205;     /* #FE01CD lava */
+  --color-base-outline-button-labels: 186, 153, 113;
+  --color-base-solid-button-labels:   255, 255, 255;
+
+  /* Typography */
+  --font-heading-family:     "Times New Roman", "Times", Georgia, serif;
+  --font-heading-style:      normal;
+  --font-heading-weight:     400;
+  --font-body-family:        "Plus Jakarta Sans", "Gilroy", system-ui, sans-serif;
+  --font-body-style:         normal;
+  --font-body-weight:        400;
+  --font-body-weight-bold:   700;
+
+  /* Buttons */
+  --color-button:            186, 153, 113;       /* gold bg */
+  --color-button-text:       255, 255, 255;
+  --buttons-radius:          300;                 /* pill */
+  --buttons-radius-outset:   0;
+  --buttons-border-width:    0;
+  --buttons-border-opacity:  0;
+
+  /* Inputs */
+  --inputs-radius:           6;
+  --inputs-border-width:     1;
+  --inputs-border-opacity:   100;
+
+  /* Cards */
+  --card-corner-radius:      12;
+  --card-text-alignment:     left;
+}
+
+/* --------------------------------------------------------------------------
+   7. SEMANTIC TYPE CLASSES (use in Liquid templates)
+   -------------------------------------------------------------------------- */
+
+.sb-headline-xl {
+  font-family: var(--sb-font-display);
+  font-size: clamp(40px, 5vw, var(--sb-text-display-xl));
+  line-height: var(--sb-leading-tight);
+  color: var(--sb-text-primary);
+  text-wrap: pretty;
+}
+
+.sb-headline-lg {
+  font-family: var(--sb-font-display);
+  font-size: clamp(28px, 3vw, var(--sb-text-display-lg));
+  line-height: var(--sb-leading-tight);
+  color: var(--sb-text-primary);
+}
+
+.sb-body-lede {
+  font-family: var(--sb-font-ui);
+  font-size: clamp(18px, 1.5vw, var(--sb-text-ui-xl));
+  font-weight: var(--sb-weight-medium);
+  line-height: var(--sb-leading-body);
+  color: var(--sb-text-secondary);
+}
+
+.sb-body {
+  font-family: var(--sb-font-ui);
+  font-size: var(--sb-text-ui-md);
+  font-weight: var(--sb-weight-regular);
+  line-height: var(--sb-leading-body);
+  color: var(--sb-text-muted);
+}
+
+.sb-label {
+  font-family: var(--sb-font-ui);
+  font-size: var(--sb-text-ui-md);
+  font-weight: var(--sb-weight-bold);
+  line-height: var(--sb-leading-ui);
+  color: var(--sb-white);
+  letter-spacing: 0.02em;
+}
+
+.sb-nav-link {
+  font-family: var(--sb-font-ui);
+  font-size: var(--sb-text-ui-lg);
+  font-weight: var(--sb-weight-bold);
+  line-height: var(--sb-leading-ui);
+  color: var(--sb-text-nav);
+  text-decoration: none;
+  transition: color var(--sb-transition);
+}
+
+.sb-nav-link:hover { color: var(--sb-gold); }
+
+/* --------------------------------------------------------------------------
+   8. BUTTON OVERRIDES
+   -------------------------------------------------------------------------- */
+
+/* Primary gold pill button */
+.sb-btn,
+.button.button--primary {
+  background-color: var(--sb-gold);
+  color: var(--sb-white);
+  font-family: var(--sb-font-ui);
+  font-weight: var(--sb-weight-bold);
+  font-size: var(--sb-text-ui-md);
+  border: none;
+  border-radius: var(--sb-radius-pill);
+  padding: 0 32px;
+  height: 50px;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  transition: filter var(--sb-transition);
+  text-decoration: none;
+}
+
+.sb-btn:hover,
+.button.button--primary:hover {
+  filter: brightness(0.88);
+  color: var(--sb-white);
+}
+
+/* --------------------------------------------------------------------------
+   9. CARD STYLES
+   -------------------------------------------------------------------------- */
+
+.sb-card {
+  background: var(--sb-bg-surface);
+  border: 1px solid var(--sb-border);
+  border-radius: var(--sb-radius-md);
+  padding: var(--sb-space-5) var(--sb-space-5) var(--sb-space-7);
+}
+
+.sb-card--accent {
+  border: 5px solid var(--sb-gold);
+}
+
+/* --------------------------------------------------------------------------
+   10. UTILITY CLASSES
+   -------------------------------------------------------------------------- */
+
+.sb-bg-black   { background-color: var(--sb-black); }
+.sb-bg-smoke   { background-color: var(--sb-smoke); }
+.sb-bg-gold    { background-color: var(--sb-gold); }
+
+.sb-text-gold  { color: var(--sb-gold); }
+.sb-text-lava  { color: var(--sb-lava); }
+.sb-text-muted { color: var(--sb-grey-light); }
+
+.sb-gradient-banner {
+  background: var(--sb-gradient-banner);
+}
+
+.sb-hero-overlay {
+  background: var(--sb-gradient-hero);
+}
+
+/* --------------------------------------------------------------------------
+   11. RESPONSIVE HELPERS
+   -------------------------------------------------------------------------- */
+
+@media screen and (max-width: 749px) {
+  .sb-headline-xl { font-size: 36px; }
+  .sb-headline-lg { font-size: 28px; }
+  .sb-body-lede   { font-size: 17px; }
+}

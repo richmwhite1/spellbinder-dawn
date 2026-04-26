@@ -1,0 +1,28 @@
+{
+  "name": "SB Hero",
+  "sections": {
+    "sb-hero": {
+      "type": "sb-hero",
+      "settings": {
+        "image_position": "center center",
+        "hero_height": 600,
+        "hero_height_mobile": 500,
+        "overlay_solid_stop": 10,
+        "overlay_mid_stop": 50,
+        "overlay_mid_opacity": 55,
+        "eyebrow": "All-n-One Daily Ritual",
+        "heading": "Your Best Days Start Here",
+        "heading_tag": "h1",
+        "subheading": "Real energy. Real ingredients. Real results. No stimulants borrowed from tomorrow. The kind of morning that sets the tone for everything that follows.",
+        "cta_label": "Try Now",
+        "cta_url": "/collections/all",
+        "cta_new_tab": false,
+        "content_padding_x": 80,
+        "content_max_width": 680
+      }
+    }
+  },
+  "order": [
+    "sb-hero"
+  ]
+}

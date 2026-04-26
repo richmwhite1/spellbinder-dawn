@@ -1,0 +1,418 @@
+{% comment %}
+  Spellbinder — Feature Cards Section
+  sections/sb-feature-cards.liquid
+
+  Three-up card grid representing the R1/R2/R3 brand pillars
+  (REMOVE · REPLENISH · REGENERATE). Each card is a theme-editor block
+  so content is fully editable. Supports 1-, 2-, or 3-column layouts.
+
+  Usage: Add to any JSON template via the theme editor.
+{% endcomment %}
+
+{{ 'spellbinder.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign col_count = section.blocks | size
+  if col_count == 0
+    assign col_count = 3
+  endif
+-%}
+
+<section
+  class="sb-feature-cards"
+  id="sb-feature-cards-{{ section.id }}"
+  style="
+    --sb-fc-cols: {{ col_count }};
+    --sb-fc-gap: {{ section.settings.card_gap }}px;
+    --sb-fc-padding-x: {{ section.settings.section_padding_x }}px;
+    --sb-fc-padding-y: {{ section.settings.section_padding_y }}px;
+    background: {{ section.settings.section_bg }};
+  "
+>
+
+  {%- unless section.settings.section_heading == blank -%}
+    <div class="sb-feature-cards__header">
+      <h2 class="sb-feature-cards__title sb-headline-lg">
+        {{ section.settings.section_heading }}
+      </h2>
+      {%- unless section.settings.section_subheading == blank -%}
+        <p class="sb-feature-cards__subtitle sb-body-lede">
+          {{ section.settings.section_subheading }}
+        </p>
+      {%- endunless -%}
+    </div>
+  {%- endunless -%}
+
+  <div class="sb-feature-cards__grid">
+
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'card' -%}
+
+        {%- liquid
+          assign border_style = block.settings.border_style
+          case border_style
+            when 'default'
+              assign card_border = '1px solid #676767'
+            when 'gold'
+              assign card_border = '5px solid #BA9971'
+            when 'lava'
+              assign card_border = '3px solid #FE01CD'
+            when 'none'
+              assign card_border = 'none'
+          endcase
+
+          assign icon_type = block.settings.icon_type
+        -%}
+
+        <div
+          class="sb-feature-cards__card sb-card"
+          style="border: {{ card_border }};"
+          {{ block.shopify_attributes }}
+        >
+
+          {%- comment %} Icon area — R1/R2/R3 SVG or image {% endcomment %}
+          <div class="sb-feature-cards__icon" style="color: {{ block.settings.icon_color }};">
+            {%- if icon_type == 'r1' -%}
+              <svg width="80" height="92" viewBox="0 0 98.106 125" fill="currentColor" aria-hidden="true">
+                <path d="M 93.253 43.491 C 93.253 19.514 73.783 0 49.842 0 L 0 0 L 0 125 L 25.73 125 L 25.73 86.982 L 37.452 86.982 L 65.158 125 L 98.106 125 L 66.247 83.757 C 82.083 77.266 93.269 61.669 93.269 43.491 Z M 49.842 62.5 L 25.73 62.5 L 25.73 24.482 L 49.85 24.482 C 59.605 24.482 67.54 33.718 67.54 43.491 C 67.54 53.264 59.605 62.5 49.85 62.5 Z"/>
+              </svg>
+            {%- elsif icon_type == 'r2' -%}
+              <svg width="80" height="92" viewBox="0 0 98.677 125" fill="currentColor" aria-hidden="true">
+                <path d="M 25.88 86.982 L 37.67 86.982 L 65.537 125 L 98.677 125 L 66.633 83.757 C 82.561 77.266 93.812 61.669 93.812 43.491 C 93.796 19.514 74.212 0 50.132 0 L 0 0 L 0 125 L 25.88 125 Z M 25.88 24.482 L 50.14 24.482 C 59.952 24.482 67.933 33.718 67.933 43.491 C 67.933 53.264 59.952 62.5 50.14 62.5 Z"/>
+              </svg>
+            {%- elsif icon_type == 'r3' -%}
+              <svg width="80" height="92" viewBox="0 0 98.228 125.534" fill="currentColor" aria-hidden="true">
+                <path d="M 25.762 87.353 L 37.499 87.353 L 65.238 125.534 L 98.228 125.534 L 66.329 84.115 C 82.185 77.596 93.385 61.933 93.385 43.677 C 93.369 19.597 73.874 0 49.903 0 L 0 0 L 0 125.534 L 25.762 125.534 Z M 25.762 24.587 L 49.912 24.587 C 59.679 24.587 67.623 33.862 67.623 43.677 C 67.623 53.492 59.679 62.767 49.912 62.767 Z"/>
+              </svg>
+            {%- elsif icon_type == 'image' and block.settings.icon_image != blank -%}
+              {{
+                block.settings.icon_image
+                | image_url: width: 200
+                | image_tag:
+                  width: block.settings.icon_image_width,
+                  loading: 'lazy',
+                  alt: block.settings.icon_image.alt | escape
+              }}
+            {%- endif -%}
+          </div>
+
+          {%- unless block.settings.label == blank -%}
+            <p class="sb-feature-cards__label">{{ block.settings.label }}</p>
+          {%- endunless -%}
+
+          {%- unless block.settings.title == blank -%}
+            <h3 class="sb-feature-cards__card-title sb-headline-lg">
+              {{ block.settings.title }}
+            </h3>
+          {%- endunless -%}
+
+          {%- unless block.settings.body == blank -%}
+            <p class="sb-feature-cards__card-body sb-body">
+              {{ block.settings.body }}
+            </p>
+          {%- endunless -%}
+
+          {%- if block.settings.cta_label != blank and block.settings.cta_url != blank -%}
+            <a href="{{ block.settings.cta_url }}" class="sb-btn sb-feature-cards__card-cta">
+              {{ block.settings.cta_label }}
+            </a>
+          {%- endif -%}
+
+        </div>
+
+      {%- endif -%}
+    {%- endfor -%}
+
+  </div>
+
+</section>
+
+<style>
+  #sb-feature-cards-{{ section.id }} {
+    padding: var(--sb-fc-padding-y) var(--sb-fc-padding-x);
+  }
+
+  #sb-feature-cards-{{ section.id }} .sb-feature-cards__header {
+    text-align: {{ section.settings.header_alignment }};
+    margin-bottom: 48px;
+    max-width: 800px;
+    {%- if section.settings.header_alignment == 'center' -%}
+    margin-left: auto;
+    margin-right: auto;
+    {%- endif -%}
+  }
+
+  #sb-feature-cards-{{ section.id }} .sb-feature-cards__title {
+    margin-bottom: 16px;
+  }
+
+  #sb-feature-cards-{{ section.id }} .sb-feature-cards__grid {
+    display: grid;
+    grid-template-columns: repeat(var(--sb-fc-cols), 1fr);
+    gap: var(--sb-fc-gap);
+  }
+
+  #sb-feature-cards-{{ section.id }} .sb-feature-cards__card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 28px 28px 40px;
+  }
+
+  #sb-feature-cards-{{ section.id }} .sb-feature-cards__icon {
+    margin-bottom: 8px;
+  }
+
+  #sb-feature-cards-{{ section.id }} .sb-feature-cards__icon img {
+    display: block;
+    height: auto;
+  }
+
+  #sb-feature-cards-{{ section.id }} .sb-feature-cards__label {
+    font-family: "Plus Jakarta Sans", "Gilroy", system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #BA9971;
+    margin: 0;
+  }
+
+  #sb-feature-cards-{{ section.id }} .sb-feature-cards__card-title {
+    margin: 0;
+    font-size: clamp(24px, 2.5vw, 30px);
+  }
+
+  #sb-feature-cards-{{ section.id }} .sb-feature-cards__card-body {
+    margin: 0;
+    flex: 1;
+  }
+
+  #sb-feature-cards-{{ section.id }} .sb-feature-cards__card-cta {
+    margin-top: auto;
+    align-self: flex-start;
+  }
+
+  /* Tablet: 2 columns */
+  @media screen and (max-width: 1024px) and (min-width: 750px) {
+    #sb-feature-cards-{{ section.id }} .sb-feature-cards__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Mobile: 1 column */
+  @media screen and (max-width: 749px) {
+    #sb-feature-cards-{{ section.id }} {
+      padding: 40px 24px;
+    }
+    #sb-feature-cards-{{ section.id }} .sb-feature-cards__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "SB Feature Cards",
+  "tag": "section",
+  "class": "spellbinder-feature-cards",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section header"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Section heading"
+    },
+    {
+      "type": "textarea",
+      "id": "section_subheading",
+      "label": "Section subheading"
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "label": "Header alignment",
+      "options": [
+        { "value": "left",   "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_x",
+      "label": "Side padding",
+      "min": 16,
+      "max": 200,
+      "step": 8,
+      "default": 80,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_y",
+      "label": "Top / bottom padding",
+      "min": 16,
+      "max": 160,
+      "step": 8,
+      "default": 64,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Gap between cards",
+      "min": 8,
+      "max": 80,
+      "step": 4,
+      "default": 32,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Feature card",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Icon"
+        },
+        {
+          "type": "select",
+          "id": "icon_type",
+          "label": "Icon type",
+          "options": [
+            { "value": "r1",    "label": "R1 — Remove" },
+            { "value": "r2",    "label": "R2 — Replenish" },
+            { "value": "r3",    "label": "R3 — Regenerate" },
+            { "value": "image", "label": "Custom image" },
+            { "value": "none",  "label": "None" }
+          ],
+          "default": "r1"
+        },
+        {
+          "type": "color",
+          "id": "icon_color",
+          "label": "Icon color",
+          "default": "#615D5A"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Custom icon image"
+        },
+        {
+          "type": "range",
+          "id": "icon_image_width",
+          "label": "Custom icon width",
+          "min": 40,
+          "max": 200,
+          "step": 10,
+          "default": 80,
+          "unit": "px"
+        },
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Eyebrow label",
+          "placeholder": "e.g. Step 1"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Card title",
+          "default": "REMOVE"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Card body",
+          "default": "Start with a clean slate. Spellbinder's formulas and plant extracts work to support your body's natural detoxification pathways."
+        },
+        {
+          "type": "text",
+          "id": "cta_label",
+          "label": "Button label"
+        },
+        {
+          "type": "url",
+          "id": "cta_url",
+          "label": "Button URL"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "select",
+          "id": "border_style",
+          "label": "Card border",
+          "options": [
+            { "value": "default", "label": "Default (grey)" },
+            { "value": "gold",    "label": "Gold accent" },
+            { "value": "lava",    "label": "Lava (pink)" },
+            { "value": "none",    "label": "None" }
+          ],
+          "default": "default"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SB Feature Cards",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "icon_type": "r1",
+            "icon_color": "#615D5A",
+            "title": "REMOVE",
+            "body": "Start with a clean slate. Spellbinder's formulas and plant extracts work to support your body's natural detoxification pathways — helping sweep away what should not be there so your cells can do their best work.",
+            "border_style": "default"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "icon_type": "r2",
+            "icon_color": "#615D5A",
+            "title": "REPLENISH",
+            "body": "Feed what matters. Spellbinder floods your biology with the nutrient density modern diets have stripped away for generations — restoring the cellular richness your body was built to run on.",
+            "border_style": "default"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "icon_type": "r3",
+            "icon_color": "#615D5A",
+            "title": "REGENERATE",
+            "body": "Build for the long game. Daily use means daily renewal — supporting cellular health, hormonal rhythm, gut integrity, cognitive clarity, and the natural elements your body needs to rebuild.",
+            "border_style": "default"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
