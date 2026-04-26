@@ -1,0 +1,133 @@
+{% comment %}
+  Spellbinder — Trust Strip
+  sections/sb-trust-strip.liquid
+
+  Four stat blocks with vertical dividers. Mobile: 2x2 grid.
+{% endcomment %}
+
+<section
+  class="sb-trust-strip"
+  id="sb-trust-strip-{{ section.id }}"
+>
+  <div class="sb-trust-strip__grid">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'stat' -%}
+        <div class="sb-trust-strip__item" {{ block.shopify_attributes }}>
+          <p class="sb-trust-strip__headline">{{ block.settings.headline }}</p>
+          <p class="sb-trust-strip__subline">{{ block.settings.subline }}</p>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+<style>
+  #sb-trust-strip-{{ section.id }} {
+    background: var(--sb-black);
+    padding: var(--sb-space-7) var(--sb-space-9);
+    border-top: 1px solid var(--sb-smoke-lightest);
+    border-bottom: 1px solid var(--sb-smoke-lightest);
+  }
+
+  #sb-trust-strip-{{ section.id }} .sb-trust-strip__grid {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  #sb-trust-strip-{{ section.id }} .sb-trust-strip__item {
+    flex: 1;
+    text-align: center;
+    padding: 0 var(--sb-space-5);
+    border-right: 1px solid var(--sb-smoke-lightest);
+  }
+
+  #sb-trust-strip-{{ section.id }} .sb-trust-strip__item:last-child {
+    border-right: none;
+  }
+
+  #sb-trust-strip-{{ section.id }} .sb-trust-strip__headline {
+    font-family: var(--sb-font-ui);
+    font-size: var(--sb-text-ui-md);
+    font-weight: var(--sb-weight-bold);
+    color: var(--sb-text-primary);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin: 0 0 var(--sb-space-2);
+  }
+
+  #sb-trust-strip-{{ section.id }} .sb-trust-strip__subline {
+    font-family: var(--sb-font-ui);
+    font-size: 14px;
+    font-weight: var(--sb-weight-regular);
+    color: var(--sb-text-muted);
+    line-height: var(--sb-leading-body);
+    margin: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    #sb-trust-strip-{{ section.id }} {
+      padding: var(--sb-space-6) var(--sb-space-5);
+    }
+
+    #sb-trust-strip-{{ section.id }} .sb-trust-strip__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sb-space-5);
+    }
+
+    #sb-trust-strip-{{ section.id }} .sb-trust-strip__item {
+      border-right: none;
+      padding: var(--sb-space-4);
+      border-bottom: 1px solid var(--sb-smoke-lightest);
+    }
+
+    #sb-trust-strip-{{ section.id }} .sb-trust-strip__item:nth-child(3),
+    #sb-trust-strip-{{ section.id }} .sb-trust-strip__item:nth-child(4) {
+      border-bottom: none;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "SB Trust Strip",
+  "tag": "section",
+  "class": "spellbinder-trust-strip",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat block",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "headline",
+          "label": "Headline",
+          "default": "40+ BOTANICALS"
+        },
+        {
+          "type": "text",
+          "id": "subline",
+          "label": "Subline",
+          "default": "Spagyric-extracted, never isolated"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SB Trust Strip",
+      "blocks": [
+        { "type": "stat", "settings": { "headline": "40+ BOTANICALS", "subline": "Spagyric-extracted, never isolated" } },
+        { "type": "stat", "settings": { "headline": "8 MEDICINAL MUSHROOMS", "subline": "Lion's mane, reishi, chaga, cordyceps + 4 more" } },
+        { "type": "stat", "settings": { "headline": "MICROBIOLOGIST FORMULATED", "subline": "By Compton Rom, where Eastern herbalism meets Western biochemistry" } },
+        { "type": "stat", "settings": { "headline": "ZERO FILLERS", "subline": "No gums, seed oils, or proprietary blends" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

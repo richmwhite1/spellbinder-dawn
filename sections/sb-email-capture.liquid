@@ -1,0 +1,94 @@
+{% comment %}
+  Spellbinder — Email Capture
+  sections/sb-email-capture.liquid
+
+  Full-width band with email signup. Uses swappable snippet for Klaviyo later.
+{% endcomment %}
+
+<section
+  class="sb-email-capture"
+  id="sb-email-capture-{{ section.id }}"
+>
+  <div class="sb-email-capture__inner">
+    {%- unless section.settings.heading == blank -%}
+      <h2 class="sb-email-capture__heading sb-headline-lg">{{ section.settings.heading }}</h2>
+    {%- endunless -%}
+
+    {%- unless section.settings.subheading == blank -%}
+      <p class="sb-email-capture__subheading sb-body-lede">{{ section.settings.subheading }}</p>
+    {%- endunless -%}
+
+    {% render 'email-form' %}
+
+    {%- unless section.settings.microcopy == blank -%}
+      <p class="sb-email-capture__microcopy">{{ section.settings.microcopy }}</p>
+    {%- endunless -%}
+  </div>
+</section>
+
+<style>
+  #sb-email-capture-{{ section.id }} {
+    background: var(--sb-smoke);
+    padding: var(--sb-space-9) var(--sb-space-9);
+  }
+
+  #sb-email-capture-{{ section.id }} .sb-email-capture__inner {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  #sb-email-capture-{{ section.id }} .sb-email-capture__heading {
+    margin: 0 0 var(--sb-space-4);
+  }
+
+  #sb-email-capture-{{ section.id }} .sb-email-capture__subheading {
+    margin: 0 0 var(--sb-space-6);
+  }
+
+  #sb-email-capture-{{ section.id }} .sb-email-capture__microcopy {
+    font-family: var(--sb-font-ui);
+    font-size: 13px;
+    color: var(--sb-grey-light);
+    margin: var(--sb-space-4) 0 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    #sb-email-capture-{{ section.id }} {
+      padding: var(--sb-space-8) var(--sb-space-5);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "SB Email Capture",
+  "tag": "section",
+  "class": "spellbinder-email-capture",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Get 10% off your first ritual."
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Plus a short guide on building your morning ritual the Spellbinder way."
+    },
+    {
+      "type": "text",
+      "id": "microcopy",
+      "label": "Microcopy",
+      "default": "No spam. Unsubscribe anytime."
+    }
+  ],
+  "presets": [
+    {
+      "name": "SB Email Capture"
+    }
+  ]
+}
+{% endschema %}

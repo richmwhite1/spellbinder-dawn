@@ -1,0 +1,95 @@
+{% comment %}
+  Spellbinder — Email Form Snippet
+  snippets/email-form.liquid
+
+  Swappable email form. Currently uses Shopify's default customer form.
+  TODO: swap to Klaviyo when installed — only this snippet needs updating.
+{% endcomment %}
+
+{%- form 'customer', id: 'sb-email-form' -%}
+  <input type="hidden" name="contact[tags]" value="newsletter">
+
+  <div class="sb-email-form">
+    <div class="sb-email-form__field">
+      <label for="sb-email-input" class="visually-hidden">Your email</label>
+      <input
+        type="email"
+        name="contact[email]"
+        id="sb-email-input"
+        class="sb-email-form__input"
+        placeholder="Your email"
+        required
+        autocomplete="email"
+        aria-label="Email address"
+      >
+      <button type="submit" class="sb-btn sb-email-form__btn">
+        Send my code
+      </button>
+    </div>
+  </div>
+
+  {%- if form.posted_successfully? -%}
+    <p class="sb-email-form__success">Check your inbox for your code.</p>
+  {%- endif -%}
+
+  {%- if form.errors -%}
+    <p class="sb-email-form__error">{{ form.errors.messages['email'] | default: 'Something went wrong. Please try again.' }}</p>
+  {%- endif -%}
+{%- endform -%}
+
+<style>
+  .sb-email-form__field {
+    display: flex;
+    gap: var(--sb-space-3);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .sb-email-form__input {
+    flex: 1;
+    height: 50px;
+    padding: 0 var(--sb-space-4);
+    font-family: var(--sb-font-ui);
+    font-size: var(--sb-text-ui-sm);
+    color: var(--sb-text-primary);
+    background: var(--sb-smoke-light);
+    border: 1px solid var(--sb-border);
+    border-radius: var(--sb-radius-sm);
+    outline: none;
+    transition: border-color var(--sb-transition);
+  }
+
+  .sb-email-form__input::placeholder {
+    color: var(--sb-grey-light);
+  }
+
+  .sb-email-form__input:focus {
+    border-color: var(--sb-gold-light);
+  }
+
+  .sb-email-form__btn {
+    flex-shrink: 0;
+  }
+
+  .sb-email-form__success {
+    font-family: var(--sb-font-ui);
+    font-size: 14px;
+    color: var(--sb-gold-light);
+    text-align: center;
+    margin: var(--sb-space-4) 0 0;
+  }
+
+  .sb-email-form__error {
+    font-family: var(--sb-font-ui);
+    font-size: 14px;
+    color: var(--sb-fire);
+    text-align: center;
+    margin: var(--sb-space-4) 0 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .sb-email-form__field {
+      flex-direction: column;
+    }
+  }
+</style>

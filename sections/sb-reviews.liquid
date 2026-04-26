@@ -1,0 +1,338 @@
+{% comment %}
+  Spellbinder — Reviews Carousel
+  sections/sb-reviews.liquid
+
+  Uses Judge.me widget for live reviews. Falls back to static blocks
+  if Judge.me is unavailable. Includes aggregate stat line.
+{% endcomment %}
+
+<section
+  class="sb-reviews"
+  id="sb-reviews-{{ section.id }}"
+>
+  <div class="sb-reviews__inner">
+    {%- unless section.settings.eyebrow == blank -%}
+      <p class="sb-reviews__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endunless -%}
+
+    {%- unless section.settings.heading == blank -%}
+      <h2 class="sb-reviews__heading sb-headline-lg">{{ section.settings.heading }}</h2>
+    {%- endunless -%}
+
+    {%- unless section.settings.aggregate_text == blank -%}
+      <p class="sb-reviews__aggregate">
+        <span class="sb-reviews__stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        {{ section.settings.aggregate_text }}
+      </p>
+    {%- endunless -%}
+
+    {%- if section.settings.use_judgeme -%}
+      <!-- Judge.me Reviews Carousel Widget -->
+      <div class="jdgm-widget jdgm-carousel-widget" data-number-of-reviews="{{ section.settings.judgeme_count }}" data-autoplay="{{ section.settings.judgeme_autoplay }}"></div>
+      <!-- TODO: Verify Judge.me carousel widget renders correctly on live store -->
+    {%- else -%}
+      {%- if section.blocks.size > 0 -%}
+        <div class="sb-reviews__carousel" role="region" aria-label="Customer reviews">
+          <div class="sb-reviews__track" id="sb-reviews-track-{{ section.id }}">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'review' -%}
+                <div class="sb-reviews__card sb-card" {{ block.shopify_attributes }}>
+                  <div class="sb-reviews__card-stars" aria-label="{{ block.settings.rating }} out of 5 stars">
+                    {%- for i in (1..5) -%}
+                      <span{% if i <= block.settings.rating %} class="sb-reviews__star--filled"{% endif %} aria-hidden="true">&#9733;</span>
+                    {%- endfor -%}
+                  </div>
+                  {%- unless block.settings.quote == blank -%}
+                    <blockquote class="sb-reviews__quote">{{ block.settings.quote }}</blockquote>
+                  {%- endunless -%}
+                  <div class="sb-reviews__meta">
+                    <span class="sb-reviews__name">{{ block.settings.name }}</span>
+                    {%- unless block.settings.product_name == blank -%}
+                      <span class="sb-reviews__product">{{ block.settings.product_name }}</span>
+                    {%- endunless -%}
+                    {%- if block.settings.verified -%}
+                      <span class="sb-reviews__verified">Verified buyer</span>
+                    {%- endif -%}
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+
+          {%- if section.blocks.size > 3 -%}
+            <div class="sb-reviews__nav">
+              <button class="sb-reviews__nav-btn" aria-label="Previous reviews" onclick="document.getElementById('sb-reviews-track-{{ section.id }}').scrollBy({left: -340, behavior: 'smooth'})">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M13 4L7 10L13 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+              <button class="sb-reviews__nav-btn" aria-label="Next reviews" onclick="document.getElementById('sb-reviews-track-{{ section.id }}').scrollBy({left: 340, behavior: 'smooth'})">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7 4L13 10L7 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  #sb-reviews-{{ section.id }} {
+    background: var(--sb-smoke);
+    padding: var(--sb-space-9) var(--sb-space-9);
+  }
+
+  #sb-reviews-{{ section.id }} .sb-reviews__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  #sb-reviews-{{ section.id }} .sb-reviews__eyebrow {
+    font-family: var(--sb-font-ui);
+    font-size: 13px;
+    font-weight: var(--sb-weight-bold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sb-gold);
+    margin: 0 0 var(--sb-space-4);
+    text-align: center;
+  }
+
+  #sb-reviews-{{ section.id }} .sb-reviews__heading {
+    margin: 0 0 var(--sb-space-4);
+    text-align: center;
+  }
+
+  #sb-reviews-{{ section.id }} .sb-reviews__aggregate {
+    font-family: var(--sb-font-ui);
+    font-size: var(--sb-text-ui-sm);
+    color: var(--sb-gold-light);
+    text-align: center;
+    margin: 0 0 var(--sb-space-7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  #sb-reviews-{{ section.id }} .sb-reviews__stars {
+    color: var(--sb-gold);
+    letter-spacing: 2px;
+  }
+
+  #sb-reviews-{{ section.id }} .sb-reviews__carousel {
+    position: relative;
+  }
+
+  #sb-reviews-{{ section.id }} .sb-reviews__track {
+    display: flex;
+    gap: var(--sb-space-5);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: var(--sb-space-2);
+  }
+
+  #sb-reviews-{{ section.id }} .sb-reviews__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  #sb-reviews-{{ section.id }} .sb-reviews__card {
+    min-width: 320px;
+    max-width: 380px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sb-space-4);
+  }
+
+  #sb-reviews-{{ section.id }} .sb-reviews__card-stars {
+    color: var(--sb-smoke-lightest);
+    font-size: 18px;
+    letter-spacing: 2px;
+  }
+
+  #sb-reviews-{{ section.id }} .sb-reviews__star--filled {
+    color: var(--sb-gold);
+  }
+
+  #sb-reviews-{{ section.id }} .sb-reviews__quote {
+    font-family: var(--sb-font-ui);
+    font-size: var(--sb-text-ui-sm);
+    color: var(--sb-text-secondary);
+    line-height: var(--sb-leading-body);
+    margin: 0;
+    font-style: italic;
+    flex: 1;
+  }
+
+  #sb-reviews-{{ section.id }} .sb-reviews__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  #sb-reviews-{{ section.id }} .sb-reviews__name {
+    font-family: var(--sb-font-ui);
+    font-size: 14px;
+    font-weight: var(--sb-weight-bold);
+    color: var(--sb-text-primary);
+  }
+
+  #sb-reviews-{{ section.id }} .sb-reviews__product {
+    font-family: var(--sb-font-ui);
+    font-size: 13px;
+    color: var(--sb-grey-light);
+  }
+
+  #sb-reviews-{{ section.id }} .sb-reviews__verified {
+    font-family: var(--sb-font-ui);
+    font-size: 12px;
+    color: var(--sb-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  #sb-reviews-{{ section.id }} .sb-reviews__nav {
+    display: flex;
+    justify-content: center;
+    gap: var(--sb-space-4);
+    margin-top: var(--sb-space-5);
+  }
+
+  #sb-reviews-{{ section.id }} .sb-reviews__nav-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--sb-border);
+    background: transparent;
+    color: var(--sb-grey-light);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color var(--sb-transition), color var(--sb-transition);
+  }
+
+  #sb-reviews-{{ section.id }} .sb-reviews__nav-btn:hover {
+    border-color: var(--sb-gold);
+    color: var(--sb-gold);
+  }
+
+  @media screen and (max-width: 749px) {
+    #sb-reviews-{{ section.id }} {
+      padding: var(--sb-space-8) var(--sb-space-5);
+    }
+
+    #sb-reviews-{{ section.id }} .sb-reviews__card {
+      min-width: 280px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "SB Reviews",
+  "tag": "section",
+  "class": "spellbinder-reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "FROM THE COMMUNITY"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Your morning, transformed."
+    },
+    {
+      "type": "text",
+      "id": "aggregate_text",
+      "label": "Aggregate text",
+      "default": "4.9 average \u00b7 500+ reviews"
+    },
+    {
+      "type": "header",
+      "content": "Judge.me integration"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_judgeme",
+      "label": "Use Judge.me carousel widget",
+      "default": false,
+      "info": "Enable once Judge.me is installed. Disables manual review blocks."
+    },
+    {
+      "type": "range",
+      "id": "judgeme_count",
+      "label": "Number of reviews to show",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "checkbox",
+      "id": "judgeme_autoplay",
+      "label": "Autoplay carousel",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating (stars)",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Review quote"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Reviewer name",
+          "default": "Customer"
+        },
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "Product name",
+          "default": "Awaken Brew"
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Verified buyer",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SB Reviews",
+      "blocks": [
+        { "type": "review", "settings": { "rating": 5, "quote": "I replaced my morning coffee two weeks ago and I'm never going back. Energy is steady all day, no crash, and my gut feels better than it has in years.", "name": "Richard C.", "product_name": "Awaken Brew", "verified": true } },
+        { "type": "review", "settings": { "rating": 5, "quote": "This stuff is the real deal. I was skeptical but the clarity I feel by day three was undeniable. Tastes great with oat milk.", "name": "Ted", "product_name": "Awaken Brew", "verified": true } },
+        { "type": "review", "settings": { "rating": 5, "quote": "Golden Latte before bed has become my favourite ritual. I sleep deeper and wake up less inflamed. Obsessed.", "name": "Zwest", "product_name": "Golden Latte", "verified": true } },
+        { "type": "review", "settings": { "rating": 5, "quote": "Finally something that actually works and doesn't taste like dirt. The subscription makes it easy too \u2014 shows up right when I need it.", "name": "Haley F.", "product_name": "Awaken Brew", "verified": true } }
+      ]
+    }
+  ]
+}
+{% endschema %}

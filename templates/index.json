@@ -1,210 +1,278 @@
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "sb_hero": {
+      "type": "sb-hero",
+      "settings": {
+        "eyebrow": "ANCIENT ALCHEMY. MODERN SCIENCE.",
+        "heading": "The morning ritual your body was built for.",
+        "heading_tag": "h1",
+        "subheading": "Forty-plus botanicals. Spagyric-fermented. Microbiologist-formulated. One cup that removes what shouldn't be there, replenishes what's been stripped away, and regenerates from the cellular level up.",
+        "rating_text": "500+ five-star reviews",
+        "cta_label": "Begin your ritual",
+        "cta_url": "/products/awaken-brew",
+        "secondary_label": "How it works \u2192",
+        "secondary_url": "/pages/our-formula",
+        "microcopy": "30-day money-back guarantee \u00b7 Free shipping over $75",
+        "image_position": "center center",
+        "hero_height": 660,
+        "hero_height_mobile": 540,
+        "overlay_solid_stop": 10,
+        "overlay_mid_stop": 50,
+        "overlay_mid_opacity": 55,
+        "content_padding_x": 80,
+        "content_max_width": 680,
+        "cta_new_tab": false
+      }
+    },
+    "sb_banner": {
+      "type": "sb-banner",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "item_1": { "type": "item", "settings": { "text": "Cognitive Clarity" } },
+        "item_2": { "type": "item", "settings": { "text": "Gut Health" } },
+        "item_3": { "type": "item", "settings": { "text": "Deep Recovery" } },
+        "item_4": { "type": "item", "settings": { "text": "Daily Ritual" } },
+        "item_5": { "type": "item", "settings": { "text": "Spagyric Botanicals" } },
+        "item_6": { "type": "item", "settings": { "text": "40+ Botanicals" } },
+        "item_7": { "type": "item", "settings": { "text": "No Stimulants" } },
+        "item_8": { "type": "item", "settings": { "text": "Microbiologist Formulated" } }
+      },
+      "block_order": ["item_1", "item_2", "item_3", "item_4", "item_5", "item_6", "item_7", "item_8"],
+      "settings": {
+        "gradient_preset": "fire_lava",
+        "banner_height": 52,
+        "font_size": 18,
+        "scroll_speed": 20,
+        "item_gap": 80,
+        "pause_on_hover": false,
+        "show_separator": true,
+        "separator_char": "\u00b7"
+      }
+    },
+    "sb_trust_strip": {
+      "type": "sb-trust-strip",
+      "blocks": {
+        "stat_1": { "type": "stat", "settings": { "headline": "40+ BOTANICALS", "subline": "Spagyric-extracted, never isolated" } },
+        "stat_2": { "type": "stat", "settings": { "headline": "8 MEDICINAL MUSHROOMS", "subline": "Lion's mane, reishi, chaga, cordyceps + 4 more" } },
+        "stat_3": { "type": "stat", "settings": { "headline": "MICROBIOLOGIST FORMULATED", "subline": "By Compton Rom, where Eastern herbalism meets Western biochemistry" } },
+        "stat_4": { "type": "stat", "settings": { "headline": "ZERO FILLERS", "subline": "No gums, seed oils, or proprietary blends" } }
+      },
+      "block_order": ["stat_1", "stat_2", "stat_3", "stat_4"],
+      "settings": {}
+    },
+    "sb_problem": {
+      "type": "sb-problem",
+      "settings": {
+        "eyebrow": "THE MORNING TRAP",
+        "heading": "Your morning is working against you.",
+        "body": "<p>Most of us start the day the same way. A cup of coffee. Maybe two. A jolt of cortisol, a spike in blood sugar, and three hours later \u2014 the crash.<\/p><p>Energy drinks promise more and deliver less. Wellness teas are under-dosed or taste like lawn clippings. Supplement stacks feel like a medical protocol. And most of what\u2019s marketed as \u201chealthy\u201d hides behind seed oils, gum fillers, and proprietary blends that tell you nothing.<\/p>",
+        "closing_line": "You deserve a little magic in your morning."
+      }
+    },
+    "sb_three_pillars": {
+      "type": "sb-feature-cards",
+      "blocks": {
+        "pillar_1": {
+          "type": "card",
           "settings": {
-            "heading": "Image banner",
-            "heading_size": "h0"
+            "icon_type": "r1",
+            "icon_color": "#615D5A",
+            "label": "STEP 1",
+            "title": "REMOVE",
+            "body": "Start with a clean slate. Spagyric extracts and plant compounds support your body\u2019s natural detoxification pathways \u2014 sweeping away what shouldn\u2019t be there so your cells can do their best work.",
+            "border_style": "default"
           }
         },
-        "text": {
-          "type": "text",
+        "pillar_2": {
+          "type": "card",
           "settings": {
-            "text": "Give customers details about the banner image(s) or content on the template.",
-            "text_style": "body"
+            "icon_type": "r2",
+            "icon_color": "#615D5A",
+            "label": "STEP 2",
+            "title": "REPLENISH",
+            "body": "Feed what matters. Spellbinder floods your biology with the nutrient density modern diets have stripped away \u2014 restoring the cellular richness your body was built to run on.",
+            "border_style": "default"
           }
         },
-        "button": {
-          "type": "buttons",
+        "pillar_3": {
+          "type": "card",
           "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "icon_type": "r3",
+            "icon_color": "#615D5A",
+            "label": "STEP 3",
+            "title": "REGENERATE",
+            "body": "Build for the long game. Daily use means daily renewal \u2014 supporting cellular health, hormonal rhythm, gut integrity, and cognitive clarity from the inside out.",
+            "border_style": "default"
           }
         }
       },
-      "block_order": [
-        "heading",
-        "text",
-        "button"
-      ],
+      "block_order": ["pillar_1", "pillar_2", "pillar_3"],
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "section_eyebrow": "THREE PRINCIPLES \u00b7 ONE SYSTEM",
+        "section_heading": "Remove. Replenish. Regenerate.",
+        "header_alignment": "center",
+        "section_bg": "#000000",
+        "section_padding_x": 80,
+        "section_padding_y": 80,
+        "card_gap": 32
       }
     },
-    "rich_text": {
-      "type": "rich-text",
+    "sb_comparison": {
+      "type": "sb-comparison",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "row_1": { "type": "row", "settings": { "drink": "Coffee (2\u20133 cups)", "benefit": "Fast energy then crash", "cost": "Cortisol spike, blood sugar swing", "longterm": "Adrenal stress over time", "highlighted": false } },
+        "row_2": { "type": "row", "settings": { "drink": "Energy Drinks", "benefit": "Quick stimulation", "cost": "Artificial ingredients, chronic inflammation", "longterm": "Metabolic disruption", "highlighted": false } },
+        "row_3": { "type": "row", "settings": { "drink": "Standard Wellness Tea", "benefit": "Mild comfort, vague benefits", "cost": "Under-dosed, often sweetened", "longterm": "Little meaningful change", "highlighted": false } },
+        "row_4": { "type": "row", "settings": { "drink": "Popular All-in-Ones", "benefit": "Broad-spectrum coverage", "cost": "Premium price, conventional extraction", "longterm": "Maintenance without depth", "highlighted": false } },
+        "row_5": { "type": "row", "settings": { "drink": "Awaken Brew", "benefit": "Sustained energy, cellular nourishment", "cost": "Zero junk \u2014 spagyric-extracted, clean by design", "longterm": "Biological intelligence compounding daily", "highlighted": true } }
+      },
+      "block_order": ["row_1", "row_2", "row_3", "row_4", "row_5"],
+      "settings": {
+        "eyebrow": "WHY SPELLBINDER",
+        "heading": "Don't just start your day. Awaken the wizard within.",
+        "subheading": "While others use synthetic vitamins and proprietary blends, we use whole-plant spagyric extracts and 50+ synergistic ingredients. No fillers. No junk. Just magic.",
+        "cta_label": "Try Awaken Brew \u2192",
+        "cta_url": "/products/awaken-brew"
+      }
+    },
+    "sb_product_showcase": {
+      "type": "sb-product-showcase",
+      "blocks": {
+        "card_1": {
+          "type": "product_card",
           "settings": {
-            "heading": "Talk about your brand",
-            "heading_size": "h1"
+            "tag": "FLAGSHIP FORMULA",
+            "title_override": "Awaken Brew",
+            "description": "Forty-plus prayerfully curated ingredients \u2014 spagyric adaptogens, medicinal mushrooms, ancient longevity herbs, and algae superfoods. Microbiologist-formulated by Compton Rom. Nothing wasted.",
+            "price_text": "$50 \u00b7 30 servings",
+            "subscribe_text": "$42 \u00b7 save 16% \u00b7 cancel anytime",
+            "cta_label": "Begin Your Ritual \u2192",
+            "cta_url": "/products/awaken-brew"
           }
         },
-        "text": {
-          "type": "text",
+        "card_2": {
+          "type": "product_card",
           "settings": {
-            "text": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.<\/p>"
+            "tag": "FAN FAVOURITE",
+            "title_override": "Golden Latte",
+            "description": "Warming. Rich. Restorative. Turmeric, ginger, eight medicinal mushrooms, and aromatic spices. Caffeine-free. Hot or iced. The ritual that repairs you while you enjoy it.",
+            "price_text": "$50 \u00b7 30 servings",
+            "subscribe_text": "$42 \u00b7 save 16% \u00b7 cancel anytime",
+            "cta_label": "Discover Yours \u2192",
+            "cta_url": "/products/golden-latte"
           }
         }
       },
-      "block_order": [
-        "heading",
-        "text"
-      ],
+      "block_order": ["card_1", "card_2"],
       "settings": {
-        "color_scheme": "scheme-1",
-        "full_width": true,
-        "padding_top": 40,
-        "padding_bottom": 0
+        "eyebrow": "CHOOSE YOUR RITUAL",
+        "heading": "Two elixirs. One complete system.",
+        "bundle_text": "Complete the system \u2014 Save 20% on the Ritual Bundle \u2192",
+        "bundle_url": "/collections/bundles"
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "show_view_all": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "columns_mobile": "2",
-        "padding_top": 28,
-        "padding_bottom": 36
-      }
-    },
-    "collage": {
-      "type": "collage",
+    "sb_reviews": {
+      "type": "sb-reviews",
       "blocks": {
-        "collection-0": {
-          "type": "collection",
-          "settings": {
-            "collection": ""
-          }
-        },
-        "product": {
-          "type": "product",
-          "settings": {
-            "product": "",
-            "second_image": false
-          }
-        },
-        "collection-1": {
-          "type": "collection",
-          "settings": {
-            "collection": ""
-          }
-        }
+        "review_1": { "type": "review", "settings": { "rating": 5, "quote": "I replaced my morning coffee two weeks ago and I\u2019m never going back. Energy is steady all day, no crash, and my gut feels better than it has in years.", "name": "Richard C.", "product_name": "Awaken Brew", "verified": true } },
+        "review_2": { "type": "review", "settings": { "rating": 5, "quote": "This stuff is the real deal. I was skeptical but the clarity I feel by day three was undeniable. Tastes great with oat milk.", "name": "Ted", "product_name": "Awaken Brew", "verified": true } },
+        "review_3": { "type": "review", "settings": { "rating": 5, "quote": "Golden Latte before bed has become my favourite ritual. I sleep deeper and wake up less inflamed. Obsessed.", "name": "Zwest", "product_name": "Golden Latte", "verified": true } },
+        "review_4": { "type": "review", "settings": { "rating": 5, "quote": "Finally something that actually works and doesn\u2019t taste like dirt. The subscription makes it easy too \u2014 shows up right when I need it.", "name": "Haley F.", "product_name": "Awaken Brew", "verified": true } }
       },
-      "block_order": [
-        "collection-0",
-        "product",
-        "collection-1"
-      ],
+      "block_order": ["review_1", "review_2", "review_3", "review_4"],
       "settings": {
-        "heading": "Multimedia collage",
-        "heading_size": "h2",
-        "desktop_layout": "left",
-        "mobile_layout": "collage",
-        "color_scheme": "scheme-1",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "eyebrow": "FROM THE COMMUNITY",
+        "heading": "Your morning, transformed.",
+        "aggregate_text": "4.9 average \u00b7 500+ reviews",
+        "use_judgeme": false,
+        "judgeme_count": 6,
+        "judgeme_autoplay": true
       }
     },
-    "video": {
-      "type": "video",
-      "settings": {
-        "heading": "",
-        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-        "heading_size": "h1",
-        "description": "",
-        "full_width": false,
-        "color_scheme": "scheme-1",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "multicolumn": {
-      "type": "multicolumn",
+    "sb_method": {
+      "type": "sb-method",
       "blocks": {
-        "column1": {
-          "type": "column",
-          "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column2": {
-          "type": "column",
-          "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column3": {
-          "type": "column",
-          "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
-            "link_label": "",
-            "link": ""
-          }
-        }
+        "step_1": { "type": "method_card", "settings": { "number": "01", "title": "Spagyric Extraction", "body": "An ancient alchemical process that captures the full spectrum of each plant \u2014 not just isolated fragments." } },
+        "step_2": { "type": "method_card", "settings": { "number": "02", "title": "The Power of Fermentation", "body": "Fermentation breaks down cellular walls, unlocks deeper compounds, and produces beneficial postbiotics that support your gut." } },
+        "step_3": { "type": "method_card", "settings": { "number": "03", "title": "Bioavailability by Design", "body": "Every formulation decision maximizes absorption. What gets in is what works \u2014 nothing wasted." } },
+        "step_4": { "type": "method_card", "settings": { "number": "04", "title": "Regenerative Sourcing", "body": "Organic, biodynamic, and wildcrafted wherever possible. Clean soil produces clean ingredients." } }
       },
-      "block_order": [
-        "column1",
-        "column2",
-        "column3"
-      ],
+      "block_order": ["step_1", "step_2", "step_3", "step_4"],
       "settings": {
-        "title": "",
-        "heading_size": "h1",
-        "image_width": "third",
-        "image_ratio": "adapt",
-        "columns_desktop": 3,
-        "column_alignment": "center",
-        "background_style": "none",
-        "button_label": "",
-        "button_link": "",
-        "swipe_on_mobile": false,
-        "color_scheme": "scheme-1",
-        "columns_mobile": "1",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "eyebrow": "THE ART BEHIND THE SCIENCE",
+        "heading": "Ancient method. Modern result.",
+        "cta_label": "Explore the full formula \u2192",
+        "cta_url": "/pages/our-formula"
+      }
+    },
+    "sb_ingredients": {
+      "type": "sb-ingredients",
+      "blocks": {
+        "cat_1": { "type": "category", "settings": { "title": "Adaptogenic Intelligence", "ingredients": "Ashwagandha, Reishi, Astragalus, Cordyceps, Siberian Ginseng, Ginseng, Epimedium, Eucommia Bark, He Shou Wu, Schisandra" } },
+        "cat_2": { "type": "category", "settings": { "title": "Ancient Tea Matrix", "ingredients": "Yerba Mate, Puerh, Jiaogulan, Long Jing, Oolong, Rooibos, Darjeeling, Liu Bao, Gyokuro, White Peony" } },
+        "cat_3": { "type": "category", "settings": { "title": "Detox & Cellular Clean", "ingredients": "Spirulina, Chlorella, Marine Phytoplankton, Spagyric Fermented Extracts, Broccoli Sprouts, Alfalfa Sprouts, Dandelion Root, Milk Thistle, Barley Grass, Aloe Vera" } },
+        "cat_4": { "type": "category", "settings": { "title": "Longevity & Hormonal", "ingredients": "Eucommia Bark, Epimedium, He Shou Wu, Ginkgo Biloba, Turmeric, Resveratrol, Astragalus, Rehmannia, Schisandra, Pine Pollen, Shilajit" } },
+        "cat_5": { "type": "category", "settings": { "title": "Medicinal Fungi", "ingredients": "Lion's Mane, Chaga, Turkey Tail, Maitake, Shiitake, Royal Agaricus, Reishi, Cordyceps, Tremella, Poria" } },
+        "cat_6": { "type": "category", "settings": { "title": "Recovery & Repair", "ingredients": "Bovine Collagen, Turmeric Juice Extract, Ginger Juice Extract, Cardamom, Cinnamon, Cacao, Black Pepper, Carob, Bromelain, Quercetin" } }
+      },
+      "block_order": ["cat_1", "cat_2", "cat_3", "cat_4", "cat_5", "cat_6"],
+      "settings": {
+        "eyebrow": "WHAT'S INSIDE",
+        "heading": "Over 50 ingredients. Every one earns its place.",
+        "subheading": "Six ancient systems. One complete formula.",
+        "cta_label": "Explore every ingredient \u2192",
+        "cta_url": "/pages/our-formula"
+      }
+    },
+    "sb_formulator": {
+      "type": "sb-formulator",
+      "settings": {
+        "eyebrow": "THE FORMULATOR",
+        "heading": "Where science becomes alchemy.",
+        "body": "<p>Every ingredient in Spellbinder is prayerfully curated by Compton Rom \u2014 a microbiologist who spent years at the crossroads of ancient Eastern herbalism and Western biochemistry, asking one question: what does the body actually need?<\/p><p>His answer was a system built on spagyric extraction \u2014 an ancient alchemical process that captures the full spectrum of each plant. Remove. Replenish. Regenerate. Not a tagline. A biological protocol, built into every dose.<\/p>",
+        "cta_label": "Read Compton's story \u2192",
+        "cta_url": "/pages/about"
+      }
+    },
+    "sb_faq": {
+      "type": "sb-faq",
+      "blocks": {
+        "q_1": { "type": "question", "settings": { "question": "How does Awaken Brew taste?", "answer": "Earthy, rich, slightly malty \u2014 like a sophisticated tea with depth. Most people drink it with a splash of oat or whole milk." } },
+        "q_2": { "type": "question", "settings": { "question": "When will I notice results?", "answer": "Sustained energy and clearer focus typically within the first week. Deeper benefits \u2014 gut health, cellular renewal \u2014 compound over 30\u201390 days." } },
+        "q_3": { "type": "question", "settings": { "question": "Will it replace my coffee?", "answer": "Yes \u2014 without the crash. Awaken Brew uses naturally caffeinated ancient teas (yerba mate, puerh, oolong) for sustained energy without cortisol spikes." } },
+        "q_4": { "type": "question", "settings": { "question": "Is it safe to take every day?", "answer": "Yes. Built for daily ritual use. Food-grade, third-party tested, and dosed for sustained intake. Pregnant, nursing, or on medication? Consult your physician." } },
+        "q_5": { "type": "question", "settings": { "question": "What makes spagyric extraction different?", "answer": "Standard extraction pulls one or two compounds. Spagyric captures the full spectrum \u2014 water-soluble, oil-soluble, and mineral salts \u2014 so your body recognizes and absorbs the whole plant." } },
+        "q_6": { "type": "question", "settings": { "question": "What's your return policy?", "answer": "If you don't love it within 30 days, we refund your first order in full. No questions, no return shipping required." } }
+      },
+      "block_order": ["q_1", "q_2", "q_3", "q_4", "q_5", "q_6"],
+      "settings": {
+        "eyebrow": "FREQUENTLY ASKED",
+        "heading": "Questions, answered.",
+        "link_label": "See all questions \u2192",
+        "link_url": "/pages/faq"
+      }
+    },
+    "sb_email_capture": {
+      "type": "sb-email-capture",
+      "settings": {
+        "heading": "Get 10% off your first ritual.",
+        "subheading": "Plus a short guide on building your morning ritual the Spellbinder way.",
+        "microcopy": "No spam. Unsubscribe anytime."
       }
     }
   },
   "order": [
-    "image_banner",
-    "rich_text",
-    "featured_collection",
-    "collage",
-    "video",
-    "multicolumn"
+    "sb_hero",
+    "sb_banner",
+    "sb_trust_strip",
+    "sb_problem",
+    "sb_three_pillars",
+    "sb_comparison",
+    "sb_product_showcase",
+    "sb_reviews",
+    "sb_method",
+    "sb_ingredients",
+    "sb_formulator",
+    "sb_faq",
+    "sb_email_capture"
   ]
 }

@@ -1,0 +1,190 @@
+{% comment %}
+  Spellbinder — The Method
+  sections/sb-method.liquid
+
+  Four-up grid. Mobile: 2x2. Each card is an editable block.
+{% endcomment %}
+
+<section
+  class="sb-method"
+  id="sb-method-{{ section.id }}"
+>
+  <div class="sb-method__inner">
+    {%- unless section.settings.eyebrow == blank -%}
+      <p class="sb-method__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endunless -%}
+
+    {%- unless section.settings.heading == blank -%}
+      <h2 class="sb-method__heading sb-headline-lg">{{ section.settings.heading }}</h2>
+    {%- endunless -%}
+
+    <div class="sb-method__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'method_card' -%}
+          <div class="sb-method__card" {{ block.shopify_attributes }}>
+            {%- unless block.settings.number == blank -%}
+              <span class="sb-method__number">{{ block.settings.number }}</span>
+            {%- endunless -%}
+            {%- unless block.settings.title == blank -%}
+              <h3 class="sb-method__card-title">{{ block.settings.title }}</h3>
+            {%- endunless -%}
+            {%- unless block.settings.body == blank -%}
+              <p class="sb-method__card-body sb-body">{{ block.settings.body }}</p>
+            {%- endunless -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.cta_label != blank and section.settings.cta_url != blank -%}
+      <div class="sb-method__cta-wrap">
+        <a href="{{ section.settings.cta_url }}" class="sb-btn">{{ section.settings.cta_label }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  #sb-method-{{ section.id }} {
+    background: var(--sb-black);
+    padding: var(--sb-space-9) var(--sb-space-9);
+  }
+
+  #sb-method-{{ section.id }} .sb-method__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  #sb-method-{{ section.id }} .sb-method__eyebrow {
+    font-family: var(--sb-font-ui);
+    font-size: 13px;
+    font-weight: var(--sb-weight-bold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sb-gold);
+    margin: 0 0 var(--sb-space-4);
+    text-align: center;
+  }
+
+  #sb-method-{{ section.id }} .sb-method__heading {
+    margin: 0 0 var(--sb-space-7);
+    text-align: center;
+  }
+
+  #sb-method-{{ section.id }} .sb-method__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--sb-space-6);
+  }
+
+  #sb-method-{{ section.id }} .sb-method__card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sb-space-3);
+  }
+
+  #sb-method-{{ section.id }} .sb-method__number {
+    font-family: var(--sb-font-display);
+    font-size: 48px;
+    color: var(--sb-smoke-lightest);
+    line-height: 1;
+  }
+
+  #sb-method-{{ section.id }} .sb-method__card-title {
+    font-family: var(--sb-font-display);
+    font-size: clamp(20px, 1.5vw, 24px);
+    color: var(--sb-text-primary);
+    margin: 0;
+    line-height: var(--sb-leading-tight);
+  }
+
+  #sb-method-{{ section.id }} .sb-method__card-body {
+    margin: 0;
+  }
+
+  #sb-method-{{ section.id }} .sb-method__cta-wrap {
+    margin-top: var(--sb-space-7);
+    text-align: center;
+  }
+
+  @media screen and (max-width: 749px) {
+    #sb-method-{{ section.id }} {
+      padding: var(--sb-space-8) var(--sb-space-5);
+    }
+
+    #sb-method-{{ section.id }} .sb-method__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "SB Method",
+  "tag": "section",
+  "class": "spellbinder-method",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "THE ART BEHIND THE SCIENCE"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Ancient method. Modern result."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA label",
+      "default": "Explore the full formula"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "method_card",
+      "name": "Method card",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number / label",
+          "default": "01"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Spagyric Extraction"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Body",
+          "default": "An ancient alchemical process that captures the full spectrum of each plant \u2014 not just isolated fragments."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SB Method",
+      "blocks": [
+        { "type": "method_card", "settings": { "number": "01", "title": "Spagyric Extraction", "body": "An ancient alchemical process that captures the full spectrum of each plant \u2014 not just isolated fragments." } },
+        { "type": "method_card", "settings": { "number": "02", "title": "The Power of Fermentation", "body": "Fermentation breaks down cellular walls, unlocks deeper compounds, and produces beneficial postbiotics that support your gut." } },
+        { "type": "method_card", "settings": { "number": "03", "title": "Bioavailability by Design", "body": "Every formulation decision maximizes absorption. What gets in is what works \u2014 nothing wasted." } },
+        { "type": "method_card", "settings": { "number": "04", "title": "Regenerative Sourcing", "body": "Organic, biodynamic, and wildcrafted wherever possible. Clean soil produces clean ingredients." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -55,15 +55,34 @@
       </p>
     {%- endunless -%}
 
-    {%- if section.settings.cta_label != blank and section.settings.cta_url != blank -%}
-      <a
-        href="{{ section.settings.cta_url }}"
-        class="sb-btn sb-hero__cta"
-        {% if section.settings.cta_new_tab %}target="_blank" rel="noopener"{% endif %}
-      >
-        {{ section.settings.cta_label }}
-      </a>
-    {%- endif -%}
+    {%- unless section.settings.rating_text == blank -%}
+      <p class="sb-hero__rating">
+        <span class="sb-hero__stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        {{ section.settings.rating_text }}
+      </p>
+    {%- endunless -%}
+
+    <div class="sb-hero__actions">
+      {%- if section.settings.cta_label != blank and section.settings.cta_url != blank -%}
+        <a
+          href="{{ section.settings.cta_url }}"
+          class="sb-btn sb-hero__cta"
+          {% if section.settings.cta_new_tab %}target="_blank" rel="noopener"{% endif %}
+        >
+          {{ section.settings.cta_label }}
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.secondary_label != blank and section.settings.secondary_url != blank -%}
+        <a href="{{ section.settings.secondary_url }}" class="sb-hero__secondary-link">
+          {{ section.settings.secondary_label }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    {%- unless section.settings.microcopy == blank -%}
+      <p class="sb-hero__microcopy">{{ section.settings.microcopy }}</p>
+    {%- endunless -%}
   </div>
 
 </section>
@@ -135,6 +154,49 @@
   #sb-hero-{{ section.id }} .sb-hero__subheading {
     margin: 0;
     max-width: 560px;
+  }
+
+  #sb-hero-{{ section.id }} .sb-hero__rating {
+    font-family: var(--sb-font-ui);
+    font-size: var(--sb-text-ui-sm);
+    font-weight: var(--sb-weight-medium);
+    color: var(--sb-gold-light);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  #sb-hero-{{ section.id }} .sb-hero__stars {
+    color: var(--sb-gold);
+    letter-spacing: 2px;
+  }
+
+  #sb-hero-{{ section.id }} .sb-hero__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--sb-space-5);
+    flex-wrap: wrap;
+  }
+
+  #sb-hero-{{ section.id }} .sb-hero__secondary-link {
+    font-family: var(--sb-font-ui);
+    font-size: var(--sb-text-ui-md);
+    font-weight: var(--sb-weight-bold);
+    color: var(--sb-gold);
+    text-decoration: none;
+    transition: color var(--sb-transition);
+  }
+
+  #sb-hero-{{ section.id }} .sb-hero__secondary-link:hover {
+    color: var(--sb-gold-light);
+  }
+
+  #sb-hero-{{ section.id }} .sb-hero__microcopy {
+    font-family: var(--sb-font-ui);
+    font-size: 14px;
+    color: var(--sb-grey-light);
+    margin: 0;
   }
 
   /* Mobile */
@@ -273,6 +335,12 @@
     },
     {
       "type": "text",
+      "id": "rating_text",
+      "label": "Rating text (below subheading)",
+      "placeholder": "e.g. 500+ five-star reviews"
+    },
+    {
+      "type": "text",
       "id": "cta_label",
       "label": "Button label",
       "default": "Try Now"
@@ -287,6 +355,23 @@
       "id": "cta_new_tab",
       "label": "Open in new tab",
       "default": false
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary link label",
+      "placeholder": "e.g. How it works →"
+    },
+    {
+      "type": "url",
+      "id": "secondary_url",
+      "label": "Secondary link URL"
+    },
+    {
+      "type": "text",
+      "id": "microcopy",
+      "label": "Microcopy below CTA",
+      "placeholder": "e.g. 30-day money-back guarantee · Free shipping over $75"
     },
     {
       "type": "header",

@@ -1,0 +1,220 @@
+{% comment %}
+  Spellbinder — What's Inside (Ingredient Categories)
+  sections/sb-ingredients.liquid
+
+  3x2 grid of expandable category cards. Mobile: stacked accordion.
+  Uses <details> for native keyboard-accessible expand/collapse.
+{% endcomment %}
+
+<section
+  class="sb-ingredients"
+  id="sb-ingredients-{{ section.id }}"
+>
+  <div class="sb-ingredients__inner">
+    {%- unless section.settings.eyebrow == blank -%}
+      <p class="sb-ingredients__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endunless -%}
+
+    {%- unless section.settings.heading == blank -%}
+      <h2 class="sb-ingredients__heading sb-headline-lg">{{ section.settings.heading }}</h2>
+    {%- endunless -%}
+
+    {%- unless section.settings.subheading == blank -%}
+      <p class="sb-ingredients__subheading sb-body-lede">{{ section.settings.subheading }}</p>
+    {%- endunless -%}
+
+    <div class="sb-ingredients__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'category' -%}
+          <details class="sb-ingredients__card sb-card" {{ block.shopify_attributes }}>
+            <summary class="sb-ingredients__card-header">
+              <h3 class="sb-ingredients__card-title">{{ block.settings.title }}</h3>
+              <svg class="sb-ingredients__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M5 8L10 13L15 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </summary>
+            <div class="sb-ingredients__card-body sb-body">
+              {{ block.settings.ingredients }}
+            </div>
+          </details>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.cta_label != blank and section.settings.cta_url != blank -%}
+      <div class="sb-ingredients__cta-wrap">
+        <a href="{{ section.settings.cta_url }}" class="sb-btn">{{ section.settings.cta_label }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  #sb-ingredients-{{ section.id }} {
+    background: var(--sb-black);
+    padding: var(--sb-space-9) var(--sb-space-9);
+  }
+
+  #sb-ingredients-{{ section.id }} .sb-ingredients__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  #sb-ingredients-{{ section.id }} .sb-ingredients__eyebrow {
+    font-family: var(--sb-font-ui);
+    font-size: 13px;
+    font-weight: var(--sb-weight-bold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sb-gold);
+    margin: 0 0 var(--sb-space-4);
+    text-align: center;
+  }
+
+  #sb-ingredients-{{ section.id }} .sb-ingredients__heading {
+    margin: 0 0 var(--sb-space-4);
+    text-align: center;
+  }
+
+  #sb-ingredients-{{ section.id }} .sb-ingredients__subheading {
+    margin: 0 0 var(--sb-space-7);
+    text-align: center;
+  }
+
+  #sb-ingredients-{{ section.id }} .sb-ingredients__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sb-space-5);
+  }
+
+  #sb-ingredients-{{ section.id }} .sb-ingredients__card {
+    cursor: pointer;
+  }
+
+  #sb-ingredients-{{ section.id }} .sb-ingredients__card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    gap: var(--sb-space-4);
+  }
+
+  #sb-ingredients-{{ section.id }} .sb-ingredients__card-header::-webkit-details-marker {
+    display: none;
+  }
+
+  #sb-ingredients-{{ section.id }} .sb-ingredients__card-title {
+    font-family: var(--sb-font-display);
+    font-size: clamp(18px, 1.5vw, 22px);
+    color: var(--sb-text-primary);
+    margin: 0;
+    line-height: var(--sb-leading-tight);
+  }
+
+  #sb-ingredients-{{ section.id }} .sb-ingredients__chevron {
+    color: var(--sb-grey-light);
+    flex-shrink: 0;
+    transition: transform var(--sb-transition);
+  }
+
+  #sb-ingredients-{{ section.id }} .sb-ingredients__card[open] .sb-ingredients__chevron {
+    transform: rotate(180deg);
+  }
+
+  #sb-ingredients-{{ section.id }} .sb-ingredients__card-body {
+    margin-top: var(--sb-space-4);
+    padding-top: var(--sb-space-4);
+    border-top: 1px solid var(--sb-smoke-lightest);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  @media screen and (max-width: 749px) {
+    #sb-ingredients-{{ section.id }} {
+      padding: var(--sb-space-8) var(--sb-space-5);
+    }
+
+    #sb-ingredients-{{ section.id }} .sb-ingredients__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media screen and (min-width: 750px) and (max-width: 1024px) {
+    #sb-ingredients-{{ section.id }} .sb-ingredients__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "SB Ingredients",
+  "tag": "section",
+  "class": "spellbinder-ingredients",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "WHAT'S INSIDE"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Over 50 ingredients. Every one earns its place."
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Six ancient systems. One complete formula."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA label",
+      "default": "Explore every ingredient"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Ingredient category",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Category name",
+          "default": "Adaptogenic Intelligence"
+        },
+        {
+          "type": "textarea",
+          "id": "ingredients",
+          "label": "Ingredient list",
+          "default": "Ashwagandha, Reishi, Astragalus, Cordyceps, Siberian Ginseng, Ginseng, Epimedium, Eucommia Bark, He Shou Wu, Schisandra"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SB Ingredients",
+      "blocks": [
+        { "type": "category", "settings": { "title": "Adaptogenic Intelligence", "ingredients": "Ashwagandha, Reishi, Astragalus, Cordyceps, Siberian Ginseng, Ginseng, Epimedium, Eucommia Bark, He Shou Wu, Schisandra" } },
+        { "type": "category", "settings": { "title": "Ancient Tea Matrix", "ingredients": "Yerba Mate, Puerh, Jiaogulan, Long Jing, Oolong, Rooibos, Darjeeling, Liu Bao, Gyokuro, White Peony" } },
+        { "type": "category", "settings": { "title": "Detox & Cellular Clean", "ingredients": "Spirulina, Chlorella, Marine Phytoplankton, Spagyric Fermented Extracts, Broccoli Sprouts, Alfalfa Sprouts, Dandelion Root, Milk Thistle, Barley Grass, Aloe Vera" } },
+        { "type": "category", "settings": { "title": "Longevity & Hormonal", "ingredients": "Eucommia Bark, Epimedium, He Shou Wu, Ginkgo Biloba, Turmeric, Resveratrol, Astragalus, Rehmannia, Schisandra, Pine Pollen, Shilajit" } },
+        { "type": "category", "settings": { "title": "Medicinal Fungi", "ingredients": "Lion's Mane, Chaga, Turkey Tail, Maitake, Shiitake, Royal Agaricus, Reishi, Cordyceps, Tremella, Poria" } },
+        { "type": "category", "settings": { "title": "Recovery & Repair", "ingredients": "Bovine Collagen, Turmeric Juice Extract, Ginger Juice Extract, Cardamom, Cinnamon, Cacao, Black Pepper, Carob, Bromelain, Quercetin" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

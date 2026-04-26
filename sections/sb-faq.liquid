@@ -1,0 +1,207 @@
+{% comment %}
+  Spellbinder — FAQ Section
+  sections/sb-faq.liquid
+
+  Accordion using native <details>/<summary> for accessibility.
+  Reusable on homepage (condensed) and product pages.
+{% endcomment %}
+
+<section
+  class="sb-faq"
+  id="sb-faq-{{ section.id }}"
+>
+  <div class="sb-faq__inner">
+    {%- unless section.settings.eyebrow == blank -%}
+      <p class="sb-faq__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endunless -%}
+
+    {%- unless section.settings.heading == blank -%}
+      <h2 class="sb-faq__heading sb-headline-lg">{{ section.settings.heading }}</h2>
+    {%- endunless -%}
+
+    <div class="sb-faq__list" role="region" aria-label="Frequently asked questions">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'question' -%}
+          <details class="sb-faq__item" {{ block.shopify_attributes }}>
+            <summary class="sb-faq__question">
+              <span class="sb-faq__question-text">{{ block.settings.question }}</span>
+              <svg class="sb-faq__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M5 8L10 13L15 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </summary>
+            <div class="sb-faq__answer sb-body">
+              {{ block.settings.answer }}
+            </div>
+          </details>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.link_label != blank and section.settings.link_url != blank -%}
+      <div class="sb-faq__link-wrap">
+        <a href="{{ section.settings.link_url }}" class="sb-faq__link">{{ section.settings.link_label }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  #sb-faq-{{ section.id }} {
+    background: var(--sb-black);
+    padding: var(--sb-space-9) var(--sb-space-9);
+  }
+
+  #sb-faq-{{ section.id }} .sb-faq__inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  #sb-faq-{{ section.id }} .sb-faq__eyebrow {
+    font-family: var(--sb-font-ui);
+    font-size: 13px;
+    font-weight: var(--sb-weight-bold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sb-gold);
+    margin: 0 0 var(--sb-space-4);
+    text-align: center;
+  }
+
+  #sb-faq-{{ section.id }} .sb-faq__heading {
+    margin: 0 0 var(--sb-space-7);
+    text-align: center;
+  }
+
+  #sb-faq-{{ section.id }} .sb-faq__item {
+    border-bottom: 1px solid var(--sb-smoke-lightest);
+  }
+
+  #sb-faq-{{ section.id }} .sb-faq__question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--sb-space-5) 0;
+    cursor: pointer;
+    list-style: none;
+    gap: var(--sb-space-4);
+  }
+
+  #sb-faq-{{ section.id }} .sb-faq__question::-webkit-details-marker {
+    display: none;
+  }
+
+  #sb-faq-{{ section.id }} .sb-faq__question-text {
+    font-family: var(--sb-font-ui);
+    font-size: var(--sb-text-ui-md);
+    font-weight: var(--sb-weight-bold);
+    color: var(--sb-text-primary);
+    line-height: var(--sb-leading-body);
+  }
+
+  #sb-faq-{{ section.id }} .sb-faq__chevron {
+    color: var(--sb-grey-light);
+    flex-shrink: 0;
+    transition: transform var(--sb-transition);
+  }
+
+  #sb-faq-{{ section.id }} .sb-faq__item[open] .sb-faq__chevron {
+    transform: rotate(180deg);
+  }
+
+  #sb-faq-{{ section.id }} .sb-faq__answer {
+    padding: 0 0 var(--sb-space-5);
+    font-size: var(--sb-text-ui-sm);
+    max-width: 680px;
+  }
+
+  #sb-faq-{{ section.id }} .sb-faq__link-wrap {
+    margin-top: var(--sb-space-7);
+    text-align: center;
+  }
+
+  #sb-faq-{{ section.id }} .sb-faq__link {
+    font-family: var(--sb-font-ui);
+    font-size: var(--sb-text-ui-md);
+    font-weight: var(--sb-weight-bold);
+    color: var(--sb-gold);
+    text-decoration: none;
+    transition: color var(--sb-transition);
+  }
+
+  #sb-faq-{{ section.id }} .sb-faq__link:hover {
+    color: var(--sb-gold-light);
+  }
+
+  @media screen and (max-width: 749px) {
+    #sb-faq-{{ section.id }} {
+      padding: var(--sb-space-8) var(--sb-space-5);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "SB FAQ",
+  "tag": "section",
+  "class": "spellbinder-faq",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "FREQUENTLY ASKED"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Questions, answered."
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link below (label)",
+      "default": "See all questions \u2192"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "limit": 20,
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How does Awaken Brew taste?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "Earthy, rich, slightly malty \u2014 like a sophisticated tea with depth. Most people drink it with a splash of oat or whole milk."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SB FAQ",
+      "blocks": [
+        { "type": "question", "settings": { "question": "How does Awaken Brew taste?", "answer": "Earthy, rich, slightly malty \u2014 like a sophisticated tea with depth. Most people drink it with a splash of oat or whole milk." } },
+        { "type": "question", "settings": { "question": "When will I notice results?", "answer": "Sustained energy and clearer focus typically within the first week. Deeper benefits \u2014 gut health, cellular renewal \u2014 compound over 30\u201390 days." } },
+        { "type": "question", "settings": { "question": "Will it replace my coffee?", "answer": "Yes \u2014 without the crash. Awaken Brew uses naturally caffeinated ancient teas (yerba mate, puerh, oolong) for sustained energy without cortisol spikes." } },
+        { "type": "question", "settings": { "question": "Is it safe to take every day?", "answer": "Yes. Built for daily ritual use. Food-grade, third-party tested, and dosed for sustained intake. Pregnant, nursing, or on medication? Consult your physician." } },
+        { "type": "question", "settings": { "question": "What makes spagyric extraction different?", "answer": "Standard extraction pulls one or two compounds. Spagyric captures the full spectrum \u2014 water-soluble, oil-soluble, and mineral salts \u2014 so your body recognizes and absorbs the whole plant." } },
+        { "type": "question", "settings": { "question": "What's your return policy?", "answer": "If you don't love it within 30 days, we refund your first order in full. No questions, no return shipping required." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

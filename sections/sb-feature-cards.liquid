@@ -32,6 +32,9 @@
 
   {%- unless section.settings.section_heading == blank -%}
     <div class="sb-feature-cards__header">
+      {%- unless section.settings.section_eyebrow == blank -%}
+        <p class="sb-feature-cards__eyebrow">{{ section.settings.section_eyebrow }}</p>
+      {%- endunless -%}
       <h2 class="sb-feature-cards__title sb-headline-lg">
         {{ section.settings.section_heading }}
       </h2>
@@ -142,6 +145,16 @@
     {%- endif -%}
   }
 
+  #sb-feature-cards-{{ section.id }} .sb-feature-cards__eyebrow {
+    font-family: var(--sb-font-ui);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sb-gold);
+    margin: 0 0 12px;
+  }
+
   #sb-feature-cards-{{ section.id }} .sb-feature-cards__title {
     margin-bottom: 16px;
   }
@@ -220,6 +233,12 @@
     {
       "type": "header",
       "content": "Section header"
+    },
+    {
+      "type": "text",
+      "id": "section_eyebrow",
+      "label": "Eyebrow label",
+      "placeholder": "e.g. THREE PRINCIPLES · ONE SYSTEM"
     },
     {
       "type": "text",
